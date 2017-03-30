@@ -18,7 +18,7 @@ public class Meal_CRUD implements CRUD_Interface<Meal>{
     private static ConcurrentNavigableMap<Integer, Meal> mealMap = new ConcurrentSkipListMap<>();
 
     @Override
-    public void create(Meal meal) {
+    public void save(Meal meal) {
         mealMap.put(meal.getId(), meal);
     }
 
@@ -51,11 +51,11 @@ public class Meal_CRUD implements CRUD_Interface<Meal>{
 
     }
 
-    public static int increaseByOneAndGet(){
+    public static int getNewID(){
         return id.incrementAndGet();
     }
 
-    public static int getId(){
-        return id.get();
+    public static ConcurrentNavigableMap<Integer, Meal> getMealMap() {
+        return mealMap;
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Ivan on 28.03.2017.
  */
 public interface CRUD_Interface<T> {
-    void create(T obj);
+    void save(T obj);
     T read(int id);
     void update(int id, T obj);
     void delete(int id);

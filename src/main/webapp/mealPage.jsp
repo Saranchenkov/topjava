@@ -12,22 +12,27 @@
     <title>Meal Page</title>
 </head>
 <body>
+<h1>${param.action == 'new' ? 'New meal' : 'Update meal'}</h1>
+<jsp:useBean id="meal" scope="request" type="ru.javawebinar.topjava.model.Meal"/>
 <form method="POST" action="meals">
+    <label>
+        <input hidden type="number" name="id" value="${meal.id}">
+    </label>
     <label>DateTime :</label>
     <label>
-        <input type="datetime-local" name="dateTime" required>
+        <input type="datetime-local" name="dateTime" value="${meal.dateTime}">
     </label>
     <br/>
 
     <label>Description :</label>
     <label>
-        <input type="text" name="description" required>
+        <input type="text" name="description" value="${meal.description}">
     </label>
     <br/>
 
     <label>Calories :</label>
     <label>
-        <input type="number" name="calories" min="0" required>
+        <input type="number" name="calories" min="0" value="${meal.calories}">
     </label>
     <br/>
 
