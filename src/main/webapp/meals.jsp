@@ -38,14 +38,22 @@
         <th>Дата и время</th>
         <th>Описание</th>
         <th>Калории</th>
+        <th colspan="2">Действие</th>
     </tr>
+    <jsp:useBean id="mealList" scope="request" type="java.util.List<ru.javawebinar.topjava.model.MealWithExceed>"/>
     <c:forEach items="${mealList}" var="meal">
         <tr style="${meal.exceed == true ? 'background-color:#FF614E' : 'background-color:#8DFF00'}">
             <td>${fmt:formatLocalDateTime(meal.dateTime, 'yyyy-MM-dd hh:mm')}</td>
             <td>${meal.description}</td>
             <td>${meal.calories}</td>
+            <td><a href="meals?action=update&mealId=<c:out value="${meal.id}"/>">Update</a></td>
+            <td><a href="meals?action=delete&mealId=<c:out value="${meal.id}"/>">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
+
+<br/>
+
+<a href="meals?action=new">Add new meal</a>
 </body>
 </html>
