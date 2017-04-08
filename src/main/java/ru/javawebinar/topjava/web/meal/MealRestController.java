@@ -18,8 +18,8 @@ public class MealRestController {
     @Autowired
     private MealService service;
 
-    public List<MealWithExceed> getAll() {
-        return MealsUtil.getWithExceeded(service.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY);
+    public List<Meal> getAll() {
+        return service.getAll();
     }
 
     public Meal get(int id) {

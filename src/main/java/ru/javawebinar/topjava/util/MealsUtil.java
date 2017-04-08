@@ -37,6 +37,13 @@ public class MealsUtil {
         return getFilteredWithExceeded(meals, LocalTime.MIN, LocalTime.MAX, caloriesPerDay);
     }
 
+    public static List<MealWithExceed> getWithExceedByDateTime(Collection<Meal> meals, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, int caloriesPerDay){
+        return getFilteredWithExceeded(meals, startTime, endTime, caloriesPerDay)
+                .stream()
+                .filter(meal -> DateTimeUtil.isBetween(meal.getDateTime().toLocalDate(), startDate, endDate))
+                .collect(Collectors.toList());
+    }
+
     public static List<MealWithExceed> getFilteredWithExceeded(Collection<Meal> meals, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
         Map<LocalDate, Integer> caloriesSumByDate = meals.stream()
                 .collect(

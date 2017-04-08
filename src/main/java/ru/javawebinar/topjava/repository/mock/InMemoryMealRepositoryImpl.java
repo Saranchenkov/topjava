@@ -37,7 +37,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
         }
-        LOG.info("save" + meal);
+        LOG.info("save " + meal);
         repository.put(meal.getId(), meal);
         return meal;
     }
@@ -60,7 +60,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         return repository.values()
                 .stream()
                 .filter(m -> m.getUserId() == AuthorizedUser.id())
-                .sorted(Comparator.comparing(Meal::getDateTime))
+                .sorted(Comparator.comparing(Meal::getDateTime).reversed())
                 .collect(Collectors.toList());
     }
 
