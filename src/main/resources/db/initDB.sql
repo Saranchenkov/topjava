@@ -2,8 +2,11 @@ DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users CASCADE ;
 DROP TABLE IF EXISTS meals;
 DROP SEQUENCE IF EXISTS global_seq CASCADE ;
+DROP SEQUENCE IF EXISTS meals_id_seq CASCADE ;
+
 
 CREATE SEQUENCE global_seq START 100000;
+CREATE SEQUENCE meals_id_seq START 100000;
 
 CREATE TABLE users
 (
@@ -19,7 +22,7 @@ CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
 
 CREATE TABLE meals
 (
-  id          SERIAL PRIMARY KEY,
+  id          INTEGER PRIMARY KEY DEFAULT nextval('meals_id_seq'),
   dateTime    TIMESTAMP DEFAULT now(),
   description VARCHAR,
   calories    INTEGER,
