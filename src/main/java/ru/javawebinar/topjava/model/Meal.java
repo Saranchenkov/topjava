@@ -1,7 +1,10 @@
 package ru.javawebinar.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,11 +13,36 @@ import java.time.LocalTime;
  * GKislin
  * 11.01.2015.
  */
+@NamedQueries({
+
+        @NamedQuery(name = Meal.GET_USER_ID, query = "SELECT m.user.id FROM Meal m WHERE m.id=:id"),
+        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:user_id"),
+        @NamedQuery(name = Meal.GET_BY_ID, query = "SELECT m FROM Meal m WHERE m.id=:id AND m.user.id=:user_id"),
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:user_id ORDER BY m.dateTime DESC "),
+        @NamedQuery(name = Meal.ALL_BETWEEN_DATETIMES, query = "SELECT m FROM Meal m " +
+                "WHERE m.user.id=:user_id AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC ")
+})
+@Entity
+@Table(name = "meals")
 public class Meal extends BaseEntity {
+
+
+    public static final String GET_USER_ID = "Meal.getUserId";
+    public static final String DELETE = "Meal.delete";
+    public static final String GET_BY_ID = "Meal.getById";
+    public static final String ALL_SORTED = "Meal.getAllSorted";
+    public static final String ALL_BETWEEN_DATETIMES = "Meal.getBetween";
+
+    @Column(name = "date_time", columnDefinition = "TIMESTAMP DEFAULT now()")
+    @NotNull
     private LocalDateTime dateTime;
 
+    @Column(name = "description")
+    @NotBlank
     private String description;
 
+    @Column(name = "calories")
+    @Min(1)
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
