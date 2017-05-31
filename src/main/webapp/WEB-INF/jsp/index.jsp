@@ -16,7 +16,7 @@
 </form>
 <ul>
     <li><a href="users"><spring:message code="users.title"/></a></li>
-    <li><a href="meals"><spring:message code="meals.title"/></a></li>
+    <li><a href="<c:url value="meals"/>"><spring:message code="meals.title"/></a></li>
 </ul>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
