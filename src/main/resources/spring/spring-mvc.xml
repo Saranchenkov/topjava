@@ -15,6 +15,24 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <mvc:annotation-driven conversion-service="formattingConversionService"/>
+
+    <bean id="formattingConversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="registerDefaultFormatters" value="false" />
+        <property name="formatters">
+            <set>
+                <bean class="ru.javawebinar.topjava.format.LocalTimeFormatter"/>
+                <bean class="ru.javawebinar.topjava.format.LocalDateFormatter"/>
+            </set>
+        </property>
+        <property name="formatterRegistrars">
+            <set>
+                <bean class="org.springframework.format.datetime.DateFormatterRegistrar"/>
+            </set>
+        </property>
+    </bean>
+
     <context:component-scan base-package="ru.javawebinar.**.web"/>
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
